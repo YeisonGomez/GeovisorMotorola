@@ -6,8 +6,6 @@ import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { QuoteService } from './quote.service';
-import { CesiumDirective } from './cesium.directive';
 
 @NgModule({
   imports: [
@@ -18,11 +16,9 @@ import { CesiumDirective } from './cesium.directive';
     HomeRoutingModule
   ],
   declarations: [
-    HomeComponent,
-    CesiumDirective
+    HomeComponent
   ],
   providers: [
-    QuoteService
   ]
 })
 export class HomeModule { }

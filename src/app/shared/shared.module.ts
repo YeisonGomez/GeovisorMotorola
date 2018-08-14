@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { CesiumDirective } from './directives/cesium.directive';
 import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
@@ -8,10 +9,12 @@ import { LoaderComponent } from './loader/loader.component';
     CommonModule
   ],
   declarations: [
-    LoaderComponent
+    LoaderComponent,
+    CesiumDirective
   ],
   exports: [
-    LoaderComponent
+    LoaderComponent,
+    CesiumDirective
   ]
 })
 export class SharedModule { }
