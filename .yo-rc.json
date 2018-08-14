@@ -1,0 +1,20 @@
+{
+  "generator-ngx-rocket": {
+    "version": "5.0.1",
+    "props": {
+      "location": "path",
+      "target": [
+        "web"
+      ],
+      "pwa": true,
+      "ui": "bootstrap",
+      "auth": true,
+      "lazy": true,
+      "angulartics": false,
+      "appName": "GeovisorMotorola",
+      "projectName": "geovisor-motorola",
+      "packageManager": "npm",
+      "mobile": []
+    }
+  }
+}
