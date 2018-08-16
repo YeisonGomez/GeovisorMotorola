@@ -59,5 +59,26 @@ export class Geometry{
 		});
 
 		this.viewer.zoomTo(this.viewer.entities);
+    }
+    
+
+	
+
+	private coordinateRange(coordinate: Array<number>, names_location: string) {
+		let wyoming = this.viewer.entities.add({
+			name: names_location,
+			polygon: {
+				hierarchy: Cesium.Cartesian3.fromDegreesArray(coordinate),
+				height: 0,
+				material: Cesium.Color.RED.withAlpha(0.5),
+				outline: true,
+				outlineColor: Cesium.Color.BLACK
+			}
+		});
+		wyoming.polygon.height = 250000;
+		wyoming.polygon.height = 200000;
+		wyoming.polygon.extrudedHeight = 250000;
+		this.viewer.trackedEntity = wyoming;
+		this.viewer.zoomTo(wyoming);
 	}
 }
