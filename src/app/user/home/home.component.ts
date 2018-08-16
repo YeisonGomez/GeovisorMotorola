@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
-import { CesiumDirective } from '../shared';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

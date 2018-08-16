@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { Route } from '@app/core';
+import { InvitedModule } from './invited/invited.module';
+import { UserModule } from './user/user.module';
 
 const routes: Routes = [
-  Route.withShell([
-    { path: 'about', loadChildren: 'app/about/about.module#AboutModule' }
-  ]),
-  // Fallback when no prior route is matched
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+	{ path: 'invited', loadChildren: () => InvitedModule },
+    { path: '', loadChildren: () => UserModule },
+	{ path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

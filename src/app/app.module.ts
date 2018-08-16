@@ -9,8 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '@env/environment';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
-import { HomeModule } from './home/home.module';
-import { LoginModule } from './login/login.module';
+import { InvitedModule } from './invited/invited.module';
+import { UserModule } from './user/user.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -24,8 +24,8 @@ import { AppRoutingModule } from './app-routing.module';
     NgbModule.forRoot(),
     CoreModule,
     SharedModule,
-    HomeModule,
-    LoginModule,
+    InvitedModule,
+    UserModule,
     AppRoutingModule
   ],
   declarations: [AppComponent],
