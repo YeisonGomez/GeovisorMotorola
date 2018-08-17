@@ -22,17 +22,18 @@ export class CesiumDirective implements OnInit {
 			animation: false,
 			timeline: false
 		});
-		this.scene = this.viewer.scene;
-		this.geometry = new Geometry(this.scene, this.viewer);
-
-		let figureOne = this.geometry.getEllipsoidGeometry(-35.166493, 29.9060534);
-		let figureTwo = this.geometry.getEllipsoidGeometry(-75.166493, 39.9060534);
-		let figureThre = this.geometry.getEllipsoidGeometry(-55.1676493, 89.9060534);
-
-		this.geometry.AddPrimitives([figureOne, figureTwo, figureThre])
 		
-		//this.geometry.FixPointCoordinate(-75.166493, 39.9060534, 'Citizens Bank Park');
 		
+		this.geometry = new Geometry(this.viewer);
+		this.geometry.runPoints();
+		
+		//this.geometry.FixPointCoordinate(-35.166493, -16.52628, 'Citizens Bank Park');
+		//let figureOne = this.geometry.getEllipsoidGeometry(-35.166493, 29.9060534);
+		//let figureTwo = this.geometry.getEllipsoidGeometry(-75.166493, 39.9060534);
+		//let figureThre = this.geometry.getEllipsoidGeometry(-55.1676493, 89.9060534);
+
+		//this.geometry.AddPrimitives([figureOne, figureTwo, figureThre])
 
 	}
+	
 }
