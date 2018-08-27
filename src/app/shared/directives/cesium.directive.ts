@@ -26,7 +26,7 @@ export class CesiumDirective implements OnInit {
 		
 		this.geometry = new Geometry(this.viewer);
 		this.geometry.runPoints();
-		
+		this.geometry.model3D();
 		//this.geometry.FixPointCoordinate(-35.166493, -16.52628, 'Citizens Bank Park');
 		//let figureOne = this.geometry.getEllipsoidGeometry(-35.166493, 29.9060534);
 		//let figureTwo = this.geometry.getEllipsoidGeometry(-75.166493, 39.9060534);

@@ -11,6 +11,9 @@ export class Geometry {
 		this.pointArray = pointsJson;
 	}
 
+
+
+
 	//Se agregan las figuras primitivas al visor
 	//Se recibe como parametro un array de tipo Array<GeometryInstance>
 	AddPrimitives(figures: any) {
@@ -47,12 +50,17 @@ export class Geometry {
 		let citizensBankPark = this.viewer.entities.add({
 			name: names_location,
 			position: Cesium.Cartesian3.fromDegrees(latitude, longitude),
-			point: {
+			/*point: {
 				pixelSize: 5,
 				color: Cesium.Color.RED,
 				outlineColor: Cesium.Color.BLACK,
 				outlineWidth: 2
-			},
+			},*/
+			billboard : {
+				image : '../../../assets/ngx-rocket-logo.png',
+				width : 20,
+				height : 20
+			  },
 			label: {
 				text: names_location,
 				font: '14pt monospace',
@@ -103,4 +111,15 @@ export class Geometry {
 		this.viewer.trackedEntity = wyoming;
 		this.viewer.zoomTo(wyoming);
 	}
+
+	public model3D(){
+		var entity = this.viewer.entities.add({
+			position : Cesium.Cartesian3.fromDegrees(-123.0744619, 44.0503706),
+			model : {
+				uri : './GroundVehicle/GroundVehicle.glb'
+			}
+		});
+		this.viewer.trackedEntity = entity;
+	}
+
 }
