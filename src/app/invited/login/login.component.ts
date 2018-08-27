@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
-import { environment } from '@env/environment';
-import { Logger, I18nService, AuthenticationService } from '@app/core';
+import { Logger, I18nService } from '@app/core';
+import { AuthService } from '@app/shared/services';
 
 const log = new Logger('Login');
 
@@ -15,33 +15,33 @@ const log = new Logger('Login');
 })
 export class LoginComponent implements OnInit {
 
-  version: string = environment.version;
+  private callbackUrl: string = "http://localhost/";
+  private clientId: string = "DevName";
+  private client_secret: string = ")(MotSolSand4321";
+  public urlApiOauth2: string = `https://idmpsb.imw.motorolasolutions.com:9031/as/authorization.oauth2?client_id=${ this.clientId }&response_type=code&redirect_uri=${ this.callbackUrl }&scope=msi_unsapi_groupmgt.read msi_unsapi_groupmgt.write msi_unsapi_presence.watch msi_unsapi_location.watch msi_unsapi_messaging&client_secret=${this.client_secret}`;
   error: string;
-  loginForm: FormGroup;
   isLoading = false;
 
   constructor(private router: Router,
+              private activateRouter: ActivatedRoute,
               private formBuilder: FormBuilder,
               private i18nService: I18nService,
-              private authenticationService: AuthenticationService) {
-    this.createForm();
+              private authService: AuthService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+      let code_oauth = this.activateRouter.snapshot.queryParams['code'];
+      if(code_oauth){
+        this.getAccessToken(code_oauth);
+      }
+  }
 
-  login() {
-    this.isLoading = true;
-    this.authenticationService.login(this.loginForm.value)
-      .pipe(finalize(() => {
-        this.loginForm.markAsPristine();
-        this.isLoading = false;
-      }))
-      .subscribe(credentials => {
-        log.debug(`${credentials.username} successfully logged in`);
-        this.router.navigate(['/'], { replaceUrl: true });
-      }, error => {
-        log.debug(`Login error: ${error}`);
-        this.error = error;
+  private getAccessToken(code: string){
+    this.authService.getAccessToken("123", code)
+      .subscribe((data: any) => {
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("refresh_token", data.refresh_token);
+        localStorage.setItem("token_type", data.token_type);
       });
   }
 
@@ -56,13 +56,4 @@ export class LoginComponent implements OnInit {
   get languages(): string[] {
     return this.i18nService.supportedLanguages;
   }
-
-  private createForm() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      remember: true
-    });
-  }
-
 }

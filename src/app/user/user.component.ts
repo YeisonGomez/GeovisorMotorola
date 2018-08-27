@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-//import { AuthService, OrdersService } from '../../shared/services';
+import { GroupService } from '@app/shared/services';
 
 declare let mApp: any;
 declare let mUtil: any;
@@ -14,9 +14,14 @@ declare let mLayout: any;
 export class UserComponent implements OnInit {
 
     constructor(
-        private router: Router) {
+        private router: Router,
+        private groupService: GroupService) {
     }
 
     ngOnInit() {
+    	this.groupService.test()
+    	.subscribe(data => {
+    		console.log(data);
+    	});
     }
 }

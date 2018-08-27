@@ -8,28 +8,28 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    public get(path: string) {
+    public get(api: string, path: string) {
         return this.http.get(
-            `${environment.serverUrl + path}`
+            `${environment.serverUrl[api] + path}`
         );
     }
 
-    public delete(path: string) {
+    public delete(api: string, path: string) {
         return this.http.delete(
-            `${environment.serverUrl + path}`
+            `${environment.serverUrl[api] + path}`
         );
     }
 
-    public put(path: string, params: any) {
+    public put(api: string, path: string, params: any) {
         return this.http.put(
-            `${environment.serverUrl + path}`,
+            `${environment.serverUrl[api] + path}`,
             params
         );
     }
 
-    public post(path: string, params: any) {
+    public post(api: string, path: string, params: any) {
         return this.http.post(
-            `${environment.serverUrl + path}`,
+            `${environment.serverUrl[api] + path}`,
             params
         );
     }

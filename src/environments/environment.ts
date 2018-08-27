@@ -9,7 +9,10 @@ import env from './.env';
 export const environment = {
   production: false,
   version: env.npm_package_version + '-dev',
-  serverUrl: '/api',
+  serverUrl: { 
+  	motorola_auth: 'https://IDM_Address:9031/as',
+  	uns_api: 'https://UNS_Address:65000/unsAPI'
+  },
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',
