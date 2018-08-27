@@ -1,4 +1,4 @@
-export const pointsJson = [
+export const points: any = [
     {
         id: 1,
         latitude: -109.080842,

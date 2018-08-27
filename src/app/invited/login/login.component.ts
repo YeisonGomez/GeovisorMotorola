@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 
 import { Logger, I18nService } from '@app/core';
 import { AuthService } from '@app/shared/services';
+import { MotorolaAuth } from '@app/shared/constanst';
 
 const log = new Logger('Login');
 
@@ -15,12 +16,9 @@ const log = new Logger('Login');
 })
 export class LoginComponent implements OnInit {
 
-  private callbackUrl: string = "http://localhost/";
-  private clientId: string = "DevName";
-  private client_secret: string = ")(MotSolSand4321";
-  public urlApiOauth2: string = `https://idmpsb.imw.motorolasolutions.com:9031/as/authorization.oauth2?client_id=${ this.clientId }&response_type=code&redirect_uri=${ this.callbackUrl }&scope=msi_unsapi_groupmgt.read msi_unsapi_groupmgt.write msi_unsapi_presence.watch msi_unsapi_location.watch msi_unsapi_messaging&client_secret=${this.client_secret}`;
-  error: string;
-  isLoading = false;
+  public urlApiOauth2: string = MotorolaAuth.urlAuthLogin;
+  public error: string;
+  public isLoading = false;
 
   constructor(private router: Router,
               private activateRouter: ActivatedRoute,
@@ -42,6 +40,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("refresh_token", data.refresh_token);
         localStorage.setItem("token_type", data.token_type);
+        this.router.navigate(['/home']);
+
       });
   }
 

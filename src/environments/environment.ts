@@ -10,7 +10,7 @@ export const environment = {
   production: false,
   version: env.npm_package_version + '-dev',
   serverUrl: { 
-  	motorola_auth: 'https://IDM_Address:9031/as',
+  	motorola_auth: 'https://idmpsb.imw.motorolasolutions.com:9031/as',
   	uns_api: 'https://UNS_Address:65000/unsAPI'
   },
   defaultLanguage: 'en-US',

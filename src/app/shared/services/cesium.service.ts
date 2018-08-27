@@ -1,22 +1,33 @@
-import { Point } from "@app/shared/objects/IPoint";
-import {pointsJson} from '@app/shared/objects/points.js'
+import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { MotorolaAuth } from '@app/shared/constanst';
+import { Point } from "@app/shared/models";
+import { points } from "@app/shared/dummy/points.dummy";
 
-export class Geometry {
-	public scene: any;
-	public viewer: any;
-	private pointArray: Array<Point> = []
-	constructor(viewer: any) {
+@Injectable()
+export class CesiumService {
+
+	private viewer: any;
+	private scene: any;
+	private pointArray: Array<Point> = [];
+
+    constructor(private api: ApiService){}
+
+    public init(viewer: any){
 		this.viewer = viewer;
 		this.scene = this.viewer.scene;
-		this.pointArray = pointsJson;
+		console.log(points);
+		this.pointArray = points;
 	}
 
+    public paintPoints() {
+		for (const point of this.pointArray) {
+			console.log(point);
+			this.FixPointCoordinate(point.latitude, point.longitude, point.name);
+		}
+	}
 
-
-
-	//Se agregan las figuras primitivas al visor
-	//Se recibe como parametro un array de tipo Array<GeometryInstance>
-	AddPrimitives(figures: any) {
+    AddPrimitives(figures: any) {
 		this.scene.primitives.add(new Cesium.Primitive({
 			geometryInstances: [...figures],
 			appearance: new Cesium.PerInstanceColorAppearance({
@@ -25,6 +36,7 @@ export class Geometry {
 			})
 		}));
 	}
+	
 	// Se crea el objeto ElipsoidGeometry y se retorna la instancia
 	getEllipsoidGeometry(latitude: number, longitude: number) {
 		let ellipsoidGeometry = new Cesium.EllipsoidGeometry({
@@ -47,6 +59,7 @@ export class Geometry {
 	}
 
 	FixPointCoordinate(latitude: number, longitude: number, names_location: string) {
+		console.log(this.viewer.entities);
 		let citizensBankPark = this.viewer.entities.add({
 			name: names_location,
 			position: Cesium.Cartesian3.fromDegrees(latitude, longitude),
@@ -72,13 +85,6 @@ export class Geometry {
 		});
 
 		this.viewer.zoomTo(this.viewer.entities);
-	}
-
-	public runPoints() {
-		for (const point of this.pointArray) {
-			console.log(point);
-			this.FixPointCoordinate(point.latitude, point.longitude, point.name);
-		}
 	}
 
 	public ellipseRange(latitude: number, longitude: number) {
@@ -121,5 +127,4 @@ export class Geometry {
 		});
 		this.viewer.trackedEntity = entity;
 	}
-
 }

@@ -1,0 +1,2 @@
+export * from './points.model';
+
