@@ -22,6 +22,11 @@ export class MemberService {
         return this.api.get('uns_api', `/location/1/abc/${id}?access_token=${token}`);
     }
 
+    public getMembersByGroupId(groupId: string){
+        let token = localStorage.getItem('access_token');
+        return this.api.get('uns_api', `/groupmgt/2/abc/groups/${groupId}?nestedgroups=reference&access_token=${token}`);
+    }
+
     public addMemberWorld(member: any){
 		this.memberArray.push(member);
 		this.memberObservable.next(this.memberArray);

@@ -1,36 +1,50 @@
 <div class="sidebar">
   <nav class="sidebar-nav">
     <ul class="nav">
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link">
             <i class="nav-icon icon-speedometer"></i> Dashboard
             <span class="badge badge-primary">NEW</span>
           </a>
-      </li>
-      <li class="nav-title">Devices</li>
-      <li class="nav-item">
-        <a class="nav-link">
-            <i class="nav-icon fa fa-lock"></i> Colors</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">
-            <i class="nav-icon icon-pencil"></i> Typography</a>
-      </li>
-      <li class="nav-title">Groups</li>
-      <li class="nav-item nav-dropdown">
-        <a class="nav-link nav-dropdown-toggle">
-            <i class="nav-icon icon-puzzle"></i> Base</a>
-        <ul class="nav-dropdown-items">
-          <li class="nav-item">
+      </li>-->
+      <section *ngIf="typeSidebar == 'members'">
+        <button (click)="back()">Atras</button>
+        <li class="nav-title">Group</li>
+        <li class="nav-item">
             <a class="nav-link">
-                <i class="nav-icon icon-puzzle"></i> Breadcrumb</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link">
-                <i class="nav-icon icon-puzzle"></i> Tooltips</a>
-          </li>
-        </ul>
-      </li>
+            <i class="nav-icon fa fa-users"></i> 
+            {{((members.displayName)? members.displayName: 'Sin nombre')}}
+            <br>
+            <span style="opacity: 0.4;">{{members.groupId}}</span>
+          </a>
+        </li>
+      </section>
+
+      <li class="nav-title">{{((typeSidebar == 'groups')? 'Groups' : 'Members')}}</li>
+
+      <section *ngIf="typeSidebar == 'members'">
+        <li class="nav-item" *ngFor="let member of members.members">
+          <a class="nav-link" (click)="getMemberById(member)">
+            <i class="nav-icon fa fa-users"></i> 
+            {{((member.displayName)? member.displayName: 'Sin nombre')}}
+            <br>
+            <span style="opacity: 0.4;">{{member.memberId}}</span>
+            <span class="badge badge-primary">Ver</span>
+          </a>
+        </li>
+      </section>
+
+
+      <section *ngIf="typeSidebar == 'groups'">
+        <li class="nav-item" *ngFor="let group of groups">
+          <a class="nav-link" (click)="getMembers(group)">
+          <i class="nav-icon fa fa-users"></i> 
+          {{((group.displayName)? group.displayName: 'Sin nombre')}}
+          <br>
+          <span style="opacity: 0.4;">{{group.groupId}}</span>
+        </a>
+        </li>
+      </section>
     </ul>
   </nav>
   <button class="sidebar-minimizer brand-minimizer" type="button"></button>

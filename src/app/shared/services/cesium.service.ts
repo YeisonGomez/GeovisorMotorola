@@ -33,8 +33,8 @@ export class CesiumService {
 				members.map((member: any) => {
 					let point: Point = {
 						id: member.address,
-						latitude: member.currentLocation.latitude,
-						longitude: member.currentLocation.longitude
+						latitude: member.currentLocation.longitude,
+						longitude: member.currentLocation.latitude
 					}
 					this.memberArray.push(point);
 					this.paintPoints(); 

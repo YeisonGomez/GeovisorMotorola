@@ -27,8 +27,8 @@ export class UserComponent implements OnInit {
 
     private getAllGroups(){
         this.groupService.getAllGroups()
-        .subscribe(data => {
-            console.log(data);
+        .subscribe((data: any) => {
+            this.groupService.setGroups(data.groupList.groupDescriptions);
         }, error => {
             if(error.status == 401)
                 this.refreshToken();
@@ -48,6 +48,8 @@ export class UserComponent implements OnInit {
             localStorage.setItem("access_token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);
             localStorage.setItem("token_type", data.token_type);
+            this.getAllGroups();
+            this.getAllDevices();
         });
     }
 }
