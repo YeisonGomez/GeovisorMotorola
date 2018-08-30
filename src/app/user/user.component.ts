@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GroupService } from '@app/shared/services';
+import { GroupService, DeviceService, AuthService } from '@app/shared/services';
 
 declare let mApp: any;
 declare let mUtil: any;
@@ -15,13 +15,39 @@ export class UserComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private groupService: GroupService) {
+        private groupService: GroupService,
+        private deviceService: DeviceService,
+        private authService: AuthService) {
     }
 
     ngOnInit() {
-    	this.groupService.test()
-    	.subscribe(data => {
-    		console.log(data);
-    	});
+        this.getAllGroups();
+        this.getAllDevices();
+    }
+
+    private getAllGroups(){
+        this.groupService.getAllGroups()
+        .subscribe(data => {
+            console.log(data);
+        }, error => {
+            if(error.status == 401)
+                this.refreshToken();
+        });
+    }
+
+    private getAllDevices(){
+        this.deviceService.getAllDevices()
+        .subscribe(data => {
+            console.log(data);
+        });
+    }
+
+    private refreshToken(){
+        this.authService.refreshToken()
+        .subscribe((data: any) => {
+            localStorage.setItem("access_token", data.access_token);
+            localStorage.setItem("refresh_token", data.refresh_token);
+            localStorage.setItem("token_type", data.token_type);
+        });
     }
 }

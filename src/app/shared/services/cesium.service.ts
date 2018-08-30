@@ -16,13 +16,12 @@ export class CesiumService {
     public init(viewer: any){
 		this.viewer = viewer;
 		this.scene = this.viewer.scene;
-		console.log(points);
 		this.pointArray = points;
 	}
 
     public paintPoints() {
 		for (const point of this.pointArray) {
-			console.log(point);
+			//console.log(point);
 			this.FixPointCoordinate(point.latitude, point.longitude, point.name);
 		}
 	}

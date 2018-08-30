@@ -6,7 +6,7 @@ import { UserModule } from './user/user.module';
 const routes: Routes = [
 	{ path: 'invited', loadChildren: () => InvitedModule },
     { path: '', loadChildren: () => UserModule },
-	{ path: '**', redirectTo: '', pathMatch: 'full' }
+	{ path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

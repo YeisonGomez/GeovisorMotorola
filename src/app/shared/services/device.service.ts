@@ -3,15 +3,15 @@ import { ApiService } from './api.service';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class GroupService {
+export class DeviceService {
 
     constructor(
         private api: ApiService,
         private router: Router
     ) { }
 
-    public getAllGroups() {
+    public getAllDevices() {
     	let token = localStorage.getItem('access_token');
-        return this.api.get('uns_api', `/groupmgt/1/abc/pres:utoddleigh@abc/groups?access_token=${token}`);
+        return this.api.get('uns_api', `/presence/1/abc/pres:utoddleigh@abc?access_token=${token}`);
     }
 }

@@ -6,7 +6,7 @@ import { SidebarComponent } from '@app/shared/layouts/sidebar/sidebar.component'
 import { CesiumDirective } from './directives/cesium.directive';
 import { LoaderComponent } from './loader/loader.component';
 
-import { ApiService, AuthService, GroupService, CesiumService } from './services';
+import { ApiService, AuthService, GroupService, CesiumService, DeviceService } from './services';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { ApiService, AuthService, GroupService, CesiumService } from './services
         ApiService,
         AuthService,
         GroupService,
-        CesiumService
+        CesiumService,
+        DeviceService
   ],
   declarations: [
     LoaderComponent,
