@@ -3,30 +3,58 @@ import { ApiService } from './api.service';
 import { MotorolaAuth } from '@app/shared/constanst';
 import { Point } from "@app/shared/models";
 import { points } from "@app/shared/dummy/points.dummy";
+import { Subject, BehaviorSubject } from 'rxjs';
+import { MemberService } from '@app/shared/services/member.service';
 
 @Injectable()
 export class CesiumService {
 
 	private viewer: any;
 	private scene: any;
-	private pointArray: Array<Point> = [];
 
-    constructor(private api: ApiService){}
+	private suscribeMembers: any;
+	private memberArray: Array<Point> = [];
 
-    public init(viewer: any){
+	constructor(
+		private api: ApiService,
+		private memberService: MemberService
+	) { }
+
+	public init(viewer: any) {
 		this.viewer = viewer;
 		this.scene = this.viewer.scene;
-		this.pointArray = points;
+		this.loadMembers();
 	}
 
-    public paintPoints() {
-		for (const point of this.pointArray) {
-			//console.log(point);
+	public loadMembers() {
+		this.suscribeMembers = this.memberService.$memberObservable.subscribe(members => {
+			if (members) {
+				this.memberArray = [];
+				members.map((member: any) => {
+					let point: Point = {
+						id: member.address,
+						latitude: member.currentLocation.latitude,
+						longitude: member.currentLocation.longitude
+					}
+					this.memberArray.push(point);
+					this.paintPoints(); 
+				})
+
+			}
+
+		});
+	}
+
+	public paintPoints() {
+		for (const point of this.memberArray) {
+			console.log("Poniendo puntos: ", point);
 			this.FixPointCoordinate(point.latitude, point.longitude, point.name);
 		}
 	}
 
-    AddPrimitives(figures: any) {
+
+
+	AddPrimitives(figures: any) {
 		this.scene.primitives.add(new Cesium.Primitive({
 			geometryInstances: [...figures],
 			appearance: new Cesium.PerInstanceColorAppearance({
@@ -35,7 +63,7 @@ export class CesiumService {
 			})
 		}));
 	}
-	
+
 	// Se crea el objeto ElipsoidGeometry y se retorna la instancia
 	getEllipsoidGeometry(latitude: number, longitude: number) {
 		let ellipsoidGeometry = new Cesium.EllipsoidGeometry({
@@ -68,11 +96,11 @@ export class CesiumService {
 				outlineColor: Cesium.Color.BLACK,
 				outlineWidth: 2
 			},*/
-			billboard : {
-				image : '../../../assets/ngx-rocket-logo.png',
-				width : 20,
-				height : 20
-			  },
+			billboard: {
+				image: '../../../assets/image/marker.png',
+				width: 27,
+				height: 27
+			},
 			label: {
 				text: names_location,
 				font: '14pt monospace',
@@ -83,7 +111,7 @@ export class CesiumService {
 			}
 		});
 
-		this.viewer.zoomTo(this.viewer.entities);
+		//this.viewer.zoomTo(this.viewer.entities);
 	}
 
 	public ellipseRange(latitude: number, longitude: number) {
@@ -117,11 +145,11 @@ export class CesiumService {
 		this.viewer.zoomTo(wyoming);
 	}
 
-	public model3D(){
+	public model3D() {
 		var entity = this.viewer.entities.add({
-			position : Cesium.Cartesian3.fromDegrees(-123.0744619, 44.0503706),
-			model : {
-				uri : './GroundVehicle/GroundVehicle.glb'
+			position: Cesium.Cartesian3.fromDegrees(-123.0744619, 44.0503706),
+			model: {
+				uri: './GroundVehicle/GroundVehicle.glb'
 			}
 		});
 		this.viewer.trackedEntity = entity;

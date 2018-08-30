@@ -11,6 +11,7 @@ export class CesiumDirective implements OnInit {
 	constructor(private el: ElementRef, private cesiumService: CesiumService) { }
 
 	ngOnInit() {
+		
 		Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZmY2Zjc5Mi1kOTMzLTQzZDMtOGExMC05ODRmM2U1MTljMjciLCJpZCI6MjU5NCwiaWF0IjoxNTMzNzkwNDA0fQ.DoY7YEDMIVVtvzK1Z_04D2qwj8wBTVF2UAmCjfkJQTQ';
 		this.viewer = new Cesium.Viewer(this.el.nativeElement, {
 			infoBox: false,
@@ -20,9 +21,9 @@ export class CesiumDirective implements OnInit {
 			animation: false,
 			timeline: false
 		});
-
+		
 		this.cesiumService.init(this.viewer);
-		this.cesiumService.paintPoints();
+		//this.cesiumService.paintPoints();
 		//this.cesiumService.model3D();
 
 		//this.geometry.FixPointCoordinate(-35.166493, -16.52628, 'Citizens Bank Park');
