@@ -7,11 +7,12 @@ import { CesiumService } from '@app/shared/services';
 export class CesiumDirective implements OnInit {
 	public viewer: any;
 	public scene: any;
-
+	
 	constructor(private el: ElementRef, private cesiumService: CesiumService) { }
-
+	
 	ngOnInit() {
 		
+	//	let DrawHelper = require('./../../../assets/scripts/DrawHelper')
 		Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZmY2Zjc5Mi1kOTMzLTQzZDMtOGExMC05ODRmM2U1MTljMjciLCJpZCI6MjU5NCwiaWF0IjoxNTMzNzkwNDA0fQ.DoY7YEDMIVVtvzK1Z_04D2qwj8wBTVF2UAmCjfkJQTQ';
 		this.viewer = new Cesium.Viewer(this.el.nativeElement, {
 			infoBox: false,
@@ -28,13 +29,15 @@ export class CesiumDirective implements OnInit {
 		var imageryLayers = this.viewer.imageryLayers; 
 		imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider(
 			{ 
-				url : 'http://016e57be.ngrok.io/geoserver/prueba/wms', 
-				layers : 'prueba:T18NVJ_20180901T152629_TCI1', 
+				url : 'http://137.135.113.239:8080/geoserver/MotoHeart/wms', 
+				layers : 'MotoHeart:ImagenBogota', 
 			}));
 
+			this.cesiumService.init(this.viewer);
+		//	let drawHelper = new DrawHelper();
 		
-		this.cesiumService.init(this.viewer);
 		/*var widget = new Cesium.CesiumWidget(this.el.nativeElement);
+		this.cesiumService.paintPoints();
 		var url='http://016e57be.ngrok.io/geoserver/wms'; //Geoserver URL
 		var layers = widget.scene.globe.imageryLayers;
 		    layers.removeAll();
@@ -42,7 +45,6 @@ export class CesiumDirective implements OnInit {
 		        url : url,        
 		        layers: 'prueba'// Here just give layer name
 		    }));*/
-		//this.cesiumService.paintPoints();
 		//this.cesiumService.model3D();
 
 		//this.geometry.FixPointCoordinate(-35.166493, -16.52628, 'Citizens Bank Park');
