@@ -29,7 +29,7 @@ export class CesiumDirective implements OnInit {
 		var imageryLayers = this.viewer.imageryLayers; 
 		imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider(
 			{ 
-				url : 'https://cors-anywhere.herokuapp.com/http://137.135.113.239:8080/geoserver/MotoHeart/wms', 
+				url : 'https://cors-anywhere.herokuapp.com/http://40.76.210.224:8080/geoserver/MotoHeart/wms', 
 				layers : 'MotoHeart:ImagenBogota', 
 			}));
 
