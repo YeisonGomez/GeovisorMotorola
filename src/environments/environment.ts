@@ -11,7 +11,7 @@ export const environment = {
   version: env.npm_package_version + '-dev',
   serverUrl: { 
   	motorola_auth: 'https://idmpsb.imw.motorolasolutions.com:9031/as',
-  	uns_api: 'https://unspsb.imw.motorolasolutions.com:65000/unsAPI'
+  	uns_api: 'https://cors-anywhere.herokuapp.com/https://unspsb.imw.motorolasolutions.com:65000/unsAPI'
   },
   defaultLanguage: 'en-US',
   supportedLanguages: [
