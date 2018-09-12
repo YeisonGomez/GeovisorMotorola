@@ -28,8 +28,8 @@ export class CesiumDirective implements OnInit {
 		var imageryLayers = this.viewer.imageryLayers; 
 		imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider(
 			{ 
-				url : 'http://016e57be.ngrok.io/geoserver/prueba/wms', 
-				layers : 'prueba:T18NVJ_20180901T152629_TCI1', 
+				url : 'http://d3e23ad5.ngrok.io/geoserver/prueba/wms', 
+				layers : 'prueba:ImagenBogota', 
 			}));
 
 		
